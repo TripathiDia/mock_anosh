@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocProvider(
         create: (context) => DataBloc(),
-        child: Home(),
+        child: const Home(),
       ),
     );
   }

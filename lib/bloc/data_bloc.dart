@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mock/bloc/data_event.dart';
-import 'package:mock/bloc/data_selected.dart';
 import 'package:mock/bloc/data_state.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:mock/model/data_model.dart';
@@ -10,7 +9,7 @@ import 'package:mock/model/data_model.dart';
 class DataBloc extends Bloc<DataEvent, DataState> {
   DataBloc() : super(DataInitial()) {
     on<SearchData>(_onLoadData);
-    on<ClearSearch>(_onClearSearch);
+   // on<ClearSearch>(_onClearSearch);
     //on<DataSelected>(_onSelectedItem as EventHandler<DataSelected, DataState>);
   }
 
@@ -46,26 +45,6 @@ Future<DataModel> _parseJsonFromAssets() async {
     }
   }
 
-  Future<void> _onSelectedItem(DataSelected event, Emitter<DataEvent> emit) async {
-    emit(DataSelected(event.selectedBarcode, event.selectedCertNo, event.selectedLocation));
-    //emit(DataLoading());
-    // try {
-    //   final data = await _parseJsonFromAssets();
-    //   emit(DataLoaded(data));
-    // } catch (e) {
-    //   emit(DataError(e.toString()));
-    // }
-  }
-
-  //  void _onSelectItem(DataSelected event, Emitter<DataEvent> emit) {
-  //   emit(DataSelected(event.selectedBarcode, event.selectedCertNo, event.selectedLocation));
-  // }
-
-  void _onClearSearch(ClearSearch event, Emitter<DataState> emit) {
-    if (state is DataLoaded) {
-      final currentState = state as DataLoaded;
-      emit(DataLoaded(currentState.data));
-    }
-  }
+  
 }
 
