@@ -16,3 +16,31 @@ class SearchData extends DataEvent {
   @override
   List<Object?> get props => [query];
 }
+
+
+class ClearSearch extends DataEvent {
+  
+
+  ClearSearch();
+
+  @override
+  List<Object?> get props => [''];
+}
+///////////////////////////////
+
+// class ClearSearch extends DataEvent {
+//   @override
+//   List<Object?> get props => [];
+// }
+
+class DataSelected extends DataEvent {
+  final String selectedBarcode;
+  final String selectedCertNo;
+  final String selectedLocation;
+
+  DataSelected(this.selectedBarcode, this.selectedCertNo, this.selectedLocation);
+
+  @override
+  List<Object?> get props => [selectedBarcode, selectedCertNo, selectedLocation];
+}
+

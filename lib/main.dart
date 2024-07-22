@@ -17,12 +17,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.white70),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black54),
         useMaterial3: true,
       ),
       home: BlocProvider(
         create: (context) => DataBloc(),
-        child: const Home(),
+        child: Home(),
       ),
     );
   }

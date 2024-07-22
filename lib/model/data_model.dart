@@ -26,7 +26,7 @@ class Item {
     String location;
     String branch;
     String status;
-    int counter;
+    dynamic counter;
     String source;
     String category;
     String collection;
@@ -38,26 +38,26 @@ class Item {
     DateTime inStkSince;
     String certNo;
     String huidNo;
-    int orderNo;
+    dynamic orderNo;
     String cusName;
     String size;
     String quality;
-    double kt;
-    int pcs;
-    double grossWt;
-    double netWt;
-    int diaPcs;
-    double diaWt;
-    int clsPcs;
-    int clsWt;
-    int chainWt;
-    int mRate;
-    int mValue;
-    int lRate;
-    int lCharges;
-    int rCharges;
-    int oCharges;
-    double mrp;
+    dynamic kt;
+    dynamic pcs;
+    dynamic grossWt;
+    dynamic netWt;
+    dynamic diaPcs;
+    dynamic diaWt;
+    dynamic clsPcs;
+    dynamic clsWt;
+    dynamic chainWt;
+    dynamic mRate;
+    dynamic mValue;
+    dynamic lRate;
+    dynamic lCharges;
+    dynamic rCharges;
+    dynamic oCharges;
+    dynamic mrp;
     String imageLink;
     List<TableDatum> tableData;
 
@@ -123,12 +123,12 @@ class Item {
         cusName: json["Cus_Name"],
         size: json["Size"],
         quality: json["Quality"],
-        kt: json["KT"]?.toDouble(),
+        kt: json["KT"],
         pcs: json["Pcs"],
-        grossWt: json["Gross_Wt"]?.toDouble(),
-        netWt: json["Net_Wt"]?.toDouble(),
+        grossWt: json["Gross_Wt"],
+        netWt: json["Net_Wt"],
         diaPcs: json["Dia_Pcs"],
-        diaWt: json["Dia_Wt"]?.toDouble(),
+        diaWt: json["Dia_Wt"],
         clsPcs: json["Cls_Pcs"],
         clsWt: json["Cls_Wt"],
         chainWt: json["Chain_Wt"],
@@ -138,7 +138,7 @@ class Item {
         lCharges: json["L_Charges"],
         rCharges: json["R_Charges"],
         oCharges: json["O_Charges"],
-        mrp: json["MRP"]?.toDouble(),
+        mrp: json["MRP"],
         imageLink: json["image_link"],
         tableData: List<TableDatum>.from(json["Table_Data"].map((x) => TableDatum.fromJson(x))),
     );
@@ -189,12 +189,12 @@ class TableDatum {
     String lotDescription;
     String group;
     String units;
-    int pcs;
-    double weight;
-    int rate;
-    int value;
-    int sRate;
-    int sValue;
+    dynamic pcs;
+    dynamic weight;
+    dynamic rate;
+    dynamic value;
+    dynamic sRate;
+    dynamic sValue;
 
     TableDatum({
         required this.lotDescription,
@@ -213,7 +213,7 @@ class TableDatum {
         group: json["Group"],
         units: json["Units"],
         pcs: json["Pcs"],
-        weight: json["Weight"]?.toDouble(),
+        weight: json["Weight"],
         rate: json["Rate"],
         value: json["Value"],
         sRate: json["S_Rate"],
