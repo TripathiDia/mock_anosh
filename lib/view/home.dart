@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mock/bloc/data_bloc.dart';
+import 'package:mock/bloc/data_event.dart';
+import 'package:mock/bloc/data_state.dart';
 import 'package:mock/view/data_table_widget.dart';
 
 class Home extends StatelessWidget {
@@ -47,22 +51,24 @@ class Home extends StatelessWidget {
                   Expanded(
                     child: Container(
                       margin: const EdgeInsets.only(top: 12, bottom: 12),
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(12)),
-                          border: Border.all(color: Theme.of(context).highlightColor)),
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(134, 71, 68, 68),
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
                      // width: double.infinity,
                       height: 40,
-                      child: Center(
+                      child: Align(
+                        alignment: Alignment.topLeft,
                         child: TextField(
-                          style: TextStyle(color: Theme.of(context).highlightColor),
-                           onChanged: (c) {},
-                          decoration: InputDecoration(
+                          style: const TextStyle(color: Color.fromARGB(134, 71, 68, 68)),
+                           onChanged: (c) {
+                            context.read<DataBloc>().add(SearchData(c));
+                           },
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Search',
-                            hintStyle: TextStyle(color: Theme.of(context).hintColor),
-                            labelStyle:
-                                TextStyle(color: Theme.of(context).highlightColor),
-                            prefixIcon: const Icon(Icons.search,
+                            alignLabelWithHint: true,
+                            hintStyle: TextStyle(color: Colors.black),
+                            prefixIcon: Icon(Icons.search,
                                 color: Colors.black),
                           ),
                         ),
@@ -73,6 +79,33 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
+            Expanded(
+            child: BlocBuilder<DataBloc, DataState>(
+              builder: (context, state) {
+                if (state is DataInitial) {
+                  return const SizedBox.shrink();
+                } else if (state is DataLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is DataLoaded) {
+                  return ListView.builder(
+                    itemCount: state.data.items.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        onTap: () {
+
+                        },
+                        title: Text(state.data.items[index].barcode),
+                      );
+                    },
+                  );
+                } else if (state is DataError) {
+                  return Center(child: Text(state.message));
+                } else {
+                  return Center(child: Text('Unknown state'));
+                }
+              },
+            ),
+          ),
             Row(
               children: [
                 Expanded(

@@ -7,8 +7,10 @@ class DataTableWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        color: const Color.fromARGB(255, 32, 28, 28),
-        child: DataTable(columns: [
+        color: const Color.fromARGB(134, 71, 68, 68),
+        child: DataTable(
+          headingRowColor: MaterialStateProperty.all<Color>(const Color.fromARGB(136, 112, 103, 103)),
+          columns: [
           dataColumn("LOT Description"),
           dataColumn("Group"),
           dataColumn("Units"),
@@ -38,7 +40,7 @@ class DataTableWidget extends StatelessWidget {
   }
 
   DataColumn dataColumn(title) {
-    return DataColumn(
+    return DataColumn(     
         label: Center(
           child: Text(title),
         ),);

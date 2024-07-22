@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mock/bloc/data_bloc.dart';
 import 'package:mock/view/home.dart';
 
 void main() {
@@ -18,8 +20,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
-      home: Home(),
+      home: BlocProvider(
+        create: (context) => DataBloc(),
+        child: const Home(),
+      ),
     );
   }
 }
-
