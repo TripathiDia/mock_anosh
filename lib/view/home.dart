@@ -112,99 +112,10 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              // Visibility(
-              //       visible: isVisible,
-              //       child: Positioned(
-              //         left: 20.0,
-              //         right: 20.8,
-              //         child: Card(
-              //           child: Container(
-              //             color: Colors.black,
-              //             width: MediaQuery.of(context).size.width / 2,
-              //             height: MediaQuery.of(context).size.height / 6,
-              //             child: BlocBuilder<DataBloc, DataState>(
-              //               builder: (context, state) {
-              //                 if (state is DataInitial) {
-              //                   return const SizedBox.shrink();
-              //                 } else if (state is DataLoading) {
-              //                   return const Center(
-              //                       child: CircularProgressIndicator());
-              //                 } else if (state is DataLoaded) {
-              //                   return ListView.builder(
-              //                     itemCount: state.data.items.length,
-              //                     itemBuilder: (context, index) {
-              //                       return ListTile(
-              //                         onTap: () {
-              //                           setState(() {
-              //                             data = state.data.items[index];
-              //                           });
-              //                         },
-              //                         title: Text(
-              //                           state.data.items[index].barcode,
-              //                           style: const TextStyle(
-              //                               color: Colors.white),
-              //                         ),
-              //                       );
-              //                     },
-              //                   );
-              //                 } else if (state is DataError) {
-              //                   return Center(child: Text(state.message));
-              //                 } else {
-              //                   return const Center(
-              //                       child: Text('Unknown state'));
-              //                 }
-              //               },
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              Column(
+          
+              Stack(
                 children: [
-                  Visibility(
-                    visible: isVisible,
-                    child: Card(
-                      child: Container(
-                        color: Colors.black,
-                        width: MediaQuery.of(context).size.width / 2,
-                        height: MediaQuery.of(context).size.height / 8,
-                        child: BlocBuilder<DataBloc, DataState>(
-                          builder: (context, state) {
-                            if (state is DataInitial) {
-                              return const SizedBox.shrink();
-                            } else if (state is DataLoading) {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            } else if (state is DataLoaded) {
-                              return ListView.builder(
-                                itemCount: state.data.items.length,
-                                itemBuilder: (context, index) {
-                                  return ListTile(
-                                    onTap: () {
-                                      setState(() {
-                                        data = state.data.items[index];
-                                        isVisible= false;
-                                      });
-                                    },
-                                    title: Text(
-                                      state.data.items[index].barcode,
-                                      style: const TextStyle(
-                                          color: Colors.white),
-                                    ),
-                                  );
-                                },
-                              );
-                            } else if (state is DataError) {
-                              return Center(child: Text(state.message));
-                            } else {
-                              return const Center(
-                                  child: Text('Unknown state'));
-                            }
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
+                  
                   BlocBuilder<DataBloc, DataState>(
                     builder: (context, state) {
                       return Row(
@@ -265,7 +176,10 @@ class _HomeState extends State<Home> {
                             height: MediaQuery.of(context).size.height/4,
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20.0),
-                                child: data?.imageLink == null ? const Center(child: Text("Your Image Here"),):  Image.network(data?.imageLink??"",
+                                child: data?.imageLink == null ? Container(
+                                  color: Colors.white,
+                                  height: MediaQuery.of(context).size.height/4, 
+                                  child: const Center(child: Text("Display Image Here", style: TextStyle(color: Colors.black),),)):  Image.network(data?.imageLink??"",
                                  // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHlZZ1Pv-Qv4XKzCS-yAERGk9ebq7wXa-LtLlWfW5egA&s",
                                   fit: BoxFit.fill,
                                 )),
@@ -274,6 +188,61 @@ class _HomeState extends State<Home> {
                         ],
                       );
                     },
+                  ),
+                  Visibility(
+                    visible: isVisible,
+                    child: Center(
+                      child: Card(
+                        color: const Color.fromARGB(135, 77, 72, 72),
+                            shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0), 
+                                     
+                                    ),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(135, 77, 72, 72),
+                            borderRadius: BorderRadius.all(Radius.circular(20))
+                          ),
+                          //color: Color.fromARGB(135, 77, 72, 72),
+                          width: MediaQuery.of(context).size.width / 2,
+                          height: MediaQuery.of(context).size.height / 8,
+                          child: BlocBuilder<DataBloc, DataState>(
+                            builder: (context, state) {
+                              if (state is DataInitial) {
+                                return const SizedBox.shrink();
+                              } else if (state is DataLoading) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              } else if (state is DataLoaded) {
+                                return ListView.builder(
+                                  itemCount: state.data.items.length,
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      onTap: () {
+                                        setState(() {
+                                          data = state.data.items[index];
+                                          isVisible= false;
+                                        });
+                                      },
+                                      title: Text(
+                                        state.data.items[index].barcode,
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                    );
+                                  },
+                                );
+                              } else if (state is DataError) {
+                                return Center(child: Text(state.message));
+                              } else {
+                                return const Center(
+                                    child: Text('Unknown state'));
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -328,11 +297,11 @@ class _HomeState extends State<Home> {
               const SizedBox(height: 10),
               Row(
                 children: [
-                  textData(const Text("M Value"), 1),
-                  textData(const Text("L Rate"), 1),
-                  textData(const Text("L Charges"), 1),
-                  textData(const Text("R Charges"), 1),
-                  textData(const Text("O Charges"), 1),
+                   textData(Text(data?.mValue.toString()??"M Value"), 1),
+                  textData(Text(data?.lRate.toString()??"L Rate"), 1),
+                  textData(Text(data?.lCharges.toString()??"L Charges"), 1),
+                  textData(Text(data?.rCharges.toString()??"R Charges"), 1),
+                  textData(Text(data?.oCharges.toString()??"O Charges"), 1),
                   SizedBox(
                       width: MediaQuery.of(context).size.width / 3.5,
                       child: Container(
