@@ -12,3 +12,12 @@ class SearchData extends DataEvent {
   @override
   List<Object?> get props => [query];
 }
+
+class ClearData extends DataEvent {
+
+  const ClearData();
+
+  @override
+  List<Object?> get props => [];
+}
+

@@ -103,9 +103,15 @@ class _HomeState extends State<Home> {
                     ),
                     TextButton(
                         onPressed: () {
-                          //context.read<DataBloc>().add(ClearSearch());
                           setState(() {
                             isVisible = false;
+                          
+                            //data.barcode = "";
+                            //context.read<DataBloc>().add(SearchData(""));
+
+                            context.read<DataBloc>().add(ClearData());
+
+                            
                           });
                         },
                         child: const Text("Clear", style: TextStyle(color: Colors.blue),))
@@ -117,6 +123,7 @@ class _HomeState extends State<Home> {
                 children: [
                   BlocBuilder<DataBloc, DataState>(
                     builder: (context, state) {
+                      print(data?.barcode.toString());
                       return Row(
                         children: [
                           Expanded(
@@ -208,7 +215,6 @@ class _HomeState extends State<Home> {
                                         ))
                                     : Image.network(
                                         data?.imageLink ?? "",
-                                        // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHlZZ1Pv-Qv4XKzCS-yAERGk9ebq7wXa-LtLlWfW5egA&s",
                                         fit: BoxFit.fill,
                                       )),
                           ),
@@ -341,15 +347,14 @@ class _HomeState extends State<Home> {
                             color: Colors.grey.withOpacity(0.4),
                           ),
                         ),
-                        child: const Text("MRP"),
+                        child: Text(data?.mrp.toString()??"MRP"),
                       ))
                 ],
               ),
-              //const DataTableWidget(),
-              const Padding(
-                padding: EdgeInsets.only(
+              Padding(
+                padding: const EdgeInsets.only(
                     left: 20.0, right: 20, top: 20, bottom: 0.0),
-                child: DataTableWidget(),
+                child: DataTableWidget(list: data?.tableData),
               )
             ],
           ),
