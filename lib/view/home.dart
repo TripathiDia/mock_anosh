@@ -16,8 +16,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String selectedData = "";
   bool isVisible = false;
-  Item ?data;
-
+  Item? data;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +74,8 @@ class _HomeState extends State<Home> {
                         margin: const EdgeInsets.only(top: 12, bottom: 12),
                         decoration: const BoxDecoration(
                             color: Color.fromARGB(134, 71, 68, 68),
-                            borderRadius: BorderRadius.all(Radius.circular(20))),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
                         // width: double.infinity,
                         height: 40,
                         child: Align(
@@ -108,14 +108,13 @@ class _HomeState extends State<Home> {
                             isVisible = false;
                           });
                         },
-                        child: const Text("Clear"))
+                        child: const Text("Clear", style: TextStyle(color: Colors.blue),))
                   ],
                 ),
               ),
-          
+
               Stack(
                 children: [
-                  
                   BlocBuilder<DataBloc, DataState>(
                     builder: (context, state) {
                       return Row(
@@ -128,43 +127,61 @@ class _HomeState extends State<Home> {
                                     textData(
                                         Text(data?.barcode ?? "Barcode Number"),
                                         1),
-                                    textData(Text(data?.location ?? "Location"), 1),
+                                    textData(
+                                        Text(data?.location ?? "Location"), 1),
                                     textData(Text(data?.branch ?? "Branch"), 1),
+                                    textData(Text(data?.status ?? "Status"), 1),
                                     textData(
-                                        Text(data?.status?? "Status"), 1),
-                                    textData(
-                                        Text(data?.counter.toString()??"Counter"), 1),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    textData(
-                                        Text(data?.source ?? "Source"), 1),
-                                    textData(
-                                        Text(data?.category?? "Category"),
+                                        Text(data?.counter.toString() ??
+                                            "Counter"),
                                         1),
-                                    textData(Text(data?.collection??"Collection"), 1),
-                                    textData(Text(data?.description??"Description"), 2)
                                   ],
                                 ),
                                 const SizedBox(height: 10),
                                 Row(
                                   children: [
-                                    textData(Text(data?.metalGrp??"Metal Grp"), 1),
-                                    textData(Text(data?.stkSection??"STK Section"), 1),
-                                    textData(Text(data?.mfgdBy??"Mfgd By"), 1),
-                                    textData(Text(data?.notes??"Notes"), 2),
+                                    textData(Text(data?.source ?? "Source"), 1),
+                                    textData(
+                                        Text(data?.category ?? "Category"), 1),
+                                    textData(
+                                        Text(data?.collection ?? "Collection"),
+                                        1),
+                                    textData(
+                                        Text(
+                                            data?.description ?? "Description"),
+                                        2)
                                   ],
                                 ),
                                 const SizedBox(height: 10),
                                 Row(
                                   children: [
-                                    textData(Text(data?.inStkSince.toString()??"In STK since"), 1),
-                                    textData(Text(data?.certNo??"Cert No."), 1),
-                                    textData(Text(data?.huidNo??"HUID No."), 1),
-                                    textData(Text(data?.orderNo.toString()??"Order No."), 1),
-                                    textData(Text(data?.cusName??"Cus Name"), 1),
+                                    textData(
+                                        Text(data?.metalGrp ?? "Metal Grp"), 1),
+                                    textData(
+                                        Text(data?.stkSection ?? "STK Section"),
+                                        1),
+                                    textData(
+                                        Text(data?.mfgdBy ?? "Mfgd By"), 1),
+                                    textData(Text(data?.notes ?? "Notes"), 2),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  children: [
+                                    textData(
+                                        Text(data?.inStkSince.toString() ??
+                                            "In STK since"),
+                                        1),
+                                    textData(
+                                        Text(data?.certNo ?? "Cert No."), 1),
+                                    textData(
+                                        Text(data?.huidNo ?? "HUID No."), 1),
+                                    textData(
+                                        Text(data?.orderNo.toString() ??
+                                            "Order No."),
+                                        1),
+                                    textData(
+                                        Text(data?.cusName ?? "Cus Name"), 1),
                                   ],
                                 ),
                               ],
@@ -173,16 +190,27 @@ class _HomeState extends State<Home> {
                           const SizedBox(width: 10),
                           SizedBox(
                             width: MediaQuery.of(context).size.width / 4,
-                            height: MediaQuery.of(context).size.height/4,
+                            height: MediaQuery.of(context).size.height / 4,
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20.0),
-                                child: data?.imageLink == null ? Container(
-                                  color: Colors.white,
-                                  height: MediaQuery.of(context).size.height/4, 
-                                  child: const Center(child: Text("Display Image Here", style: TextStyle(color: Colors.black),),)):  Image.network(data?.imageLink??"",
-                                 // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHlZZ1Pv-Qv4XKzCS-yAERGk9ebq7wXa-LtLlWfW5egA&s",
-                                  fit: BoxFit.fill,
-                                )),
+                                child: data?.imageLink == null
+                                    ? Container(
+                                        color: Colors.white,
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                4,
+                                        child: const Center(
+                                          child: Text(
+                                            "Display Image Here",
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                        ))
+                                    : Image.network(
+                                        data?.imageLink ?? "",
+                                        // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHlZZ1Pv-Qv4XKzCS-yAERGk9ebq7wXa-LtLlWfW5egA&s",
+                                        fit: BoxFit.fill,
+                                      )),
                           ),
                           const SizedBox(width: 40),
                         ],
@@ -194,18 +222,16 @@ class _HomeState extends State<Home> {
                     child: Center(
                       child: Card(
                         color: const Color.fromARGB(135, 77, 72, 72),
-                            shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20.0), 
-                                     
-                                    ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
                         child: Container(
                           decoration: const BoxDecoration(
-                            color: Color.fromARGB(135, 77, 72, 72),
-                            borderRadius: BorderRadius.all(Radius.circular(20))
-                          ),
-                          //color: Color.fromARGB(135, 77, 72, 72),
+                              color: Color.fromARGB(135, 77, 72, 72),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
                           width: MediaQuery.of(context).size.width / 2,
-                          height: MediaQuery.of(context).size.height / 8,
+                          height: MediaQuery.of(context).size.height / 6,
                           child: BlocBuilder<DataBloc, DataState>(
                             builder: (context, state) {
                               if (state is DataInitial) {
@@ -214,14 +240,15 @@ class _HomeState extends State<Home> {
                                 return const Center(
                                     child: CircularProgressIndicator());
                               } else if (state is DataLoaded) {
-                                return ListView.builder(
+                                return state.data.items.isEmpty ? const Center(child: Text("No results found")): ListView.builder(
                                   itemCount: state.data.items.length,
                                   itemBuilder: (context, index) {
-                                    return ListTile(
+                                    return 
+                                    ListTile(
                                       onTap: () {
                                         setState(() {
                                           data = state.data.items[index];
-                                          isVisible= false;
+                                          isVisible = false;
                                         });
                                       },
                                       title: Text(
@@ -249,11 +276,11 @@ class _HomeState extends State<Home> {
               const SizedBox(height: 10),
               Row(
                 children: [
-                  textData(Text(data?.size??"Size"), 1),
-                  textData(Text(data?.quality??"Quality"), 1),
-                  textData(Text(data?.kt.toString()??"KT"), 1),
-                  textData(Text(data?.pcs.toString()??"Pcs"), 1),
-                  textData(Text(data?.grossWt.toString()??"Gross Wt"), 1),
+                  textData(Text(data?.size ?? "Size"), 1),
+                  textData(Text(data?.quality ?? "Quality"), 1),
+                  textData(Text(data?.kt.toString() ?? "KT"), 1),
+                  textData(Text(data?.pcs.toString() ?? "Pcs"), 1),
+                  textData(Text(data?.grossWt.toString() ?? "Gross Wt"), 1),
                   SizedBox(
                       width: MediaQuery.of(context).size.width / 3.5,
                       child: Container(
@@ -266,18 +293,18 @@ class _HomeState extends State<Home> {
                             color: Colors.grey.withOpacity(0.4),
                           ),
                         ),
-                        child: Text(data?.netWt.toString()??"Net Wt"),
+                        child: Text(data?.netWt.toString() ?? "Net Wt"),
                       ))
                 ],
               ),
               const SizedBox(height: 10),
               Row(
                 children: [
-                  textData(Text(data?.netWt.toString()??"Dia Pcs"), 1),
-                  textData(Text(data?.diaWt.toString()??"Dia Wt"), 1),
-                  textData(Text(data?.clsPcs.toString()??"Cls Pcs"), 1),
-                  textData(Text(data?.clsWt.toString()??"Cls Wt"), 1),
-                  textData(Text(data?.chainWt.toString()??"Chain Wt"), 1),
+                  textData(Text(data?.netWt.toString() ?? "Dia Pcs"), 1),
+                  textData(Text(data?.diaWt.toString() ?? "Dia Wt"), 1),
+                  textData(Text(data?.clsPcs.toString() ?? "Cls Pcs"), 1),
+                  textData(Text(data?.clsWt.toString() ?? "Cls Wt"), 1),
+                  textData(Text(data?.chainWt.toString() ?? "Chain Wt"), 1),
                   SizedBox(
                       width: MediaQuery.of(context).size.width / 3.5,
                       child: Container(
@@ -290,18 +317,18 @@ class _HomeState extends State<Home> {
                             color: Colors.grey.withOpacity(0.4),
                           ),
                         ),
-                        child: Text(data?.mRate.toString()??"M Rate"),
+                        child: Text(data?.mRate.toString() ?? "M Rate"),
                       ))
                 ],
               ),
               const SizedBox(height: 10),
               Row(
                 children: [
-                   textData(Text(data?.mValue.toString()??"M Value"), 1),
-                  textData(Text(data?.lRate.toString()??"L Rate"), 1),
-                  textData(Text(data?.lCharges.toString()??"L Charges"), 1),
-                  textData(Text(data?.rCharges.toString()??"R Charges"), 1),
-                  textData(Text(data?.oCharges.toString()??"O Charges"), 1),
+                  textData(Text(data?.mValue.toString() ?? "M Value"), 1),
+                  textData(Text(data?.lRate.toString() ?? "L Rate"), 1),
+                  textData(Text(data?.lCharges.toString() ?? "L Charges"), 1),
+                  textData(Text(data?.rCharges.toString() ?? "R Charges"), 1),
+                  textData(Text(data?.oCharges.toString() ?? "O Charges"), 1),
                   SizedBox(
                       width: MediaQuery.of(context).size.width / 3.5,
                       child: Container(
@@ -320,7 +347,8 @@ class _HomeState extends State<Home> {
               ),
               //const DataTableWidget(),
               const Padding(
-                padding: EdgeInsets.only(left:20.0, right:20, top:20, bottom: 0.0),
+                padding: EdgeInsets.only(
+                    left: 20.0, right: 20, top: 20, bottom: 0.0),
                 child: DataTableWidget(),
               )
             ],

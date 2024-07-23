@@ -9,8 +9,6 @@ import 'package:mock/model/data_model.dart';
 class DataBloc extends Bloc<DataEvent, DataState> {
   DataBloc() : super(DataInitial()) {
     on<SearchData>(_onLoadData);
-   // on<ClearSearch>(_onClearSearch);
-    //on<DataSelected>(_onSelectedItem as EventHandler<DataSelected, DataState>);
   }
 
   Future<String> _loadJsonAsset(String path) async {
@@ -28,23 +26,15 @@ Future<DataModel> _parseJsonFromAssets() async {
     emit(DataLoading());
     try {
       final data = await _parseJsonFromAssets();
-      emit(DataLoaded(data));
+
+      final filteredData = data.items.where((item) {
+        return item.barcode.toLowerCase().contains(event.query.toLowerCase());
+      }).toList();
+      emit(DataLoaded(DataModel(items: filteredData)));
     } catch (e) {
       emit(DataError(e.toString()));
     }
   }
-
-
-   void _onSearchData(SearchData event, Emitter<DataState> emit) {
-    if (state is DataLoaded) {
-      final currentState = state as DataLoaded;
-      final filteredData = currentState.data.items.where((item) {
-        return item.barcode.toLowerCase().contains(event.query.toLowerCase());
-      }).toList();
-      emit(DataLoaded(DataModel(items: filteredData)));
-    }
-  }
-
   
 }
 
